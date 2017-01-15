@@ -2,7 +2,7 @@
 namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\Json;
 
 /*
- * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
+ * This file is part of the TYPO3/FluidViewHelpers project under GPLv2 or later.
  *
  * For the full copyright and license information, please read the
  * LICENSE.md file that was distributed with this source code.

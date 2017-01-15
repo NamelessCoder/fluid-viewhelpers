@@ -14,7 +14,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
  * ### Unless
  *
  * The opposite of `f:if` and only supporting negative matching.
- * Related to `v:or` but allows more complex conditions.
+ * Related to `f:`or` but allows more complex conditions.
  *
  * Is the same as writing:
  *
@@ -32,7 +32,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
  *         Warning! Something required was not present.
  *     </f:unless>
  *
- * #### Example, inline mode illustrating `v:or` likeness
+ * #### Example, inline mode illustrating `f:`or` likeness
  *
  *     {defaultText -> f:unless(condition: originalText)}
  *         // which is much the same as...

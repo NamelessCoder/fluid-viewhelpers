@@ -28,11 +28,11 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *         </f:else>
  *     </f:if>
  *
- * At the time of writing this, `v:variable.unset` is not able
+ * At the time of writing this, `f:`variable.unset` is not able
  * to remove members of for example arrays:
  *
  *     <!-- DOES NOT WORK! -->
- *     <v:variable.unset name="myObject.propertyName" />
+ *     <f:variable.unset name="myObject.propertyName" />
  */
 class UnsetViewHelper extends AbstractViewHelper
 {

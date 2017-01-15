@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FluidViewHelpers\ViewHelpers\Json;
+namespace TYPO3\FluidViewHelpers\ViewHelpers\Generate;
 
 /*
  * This file is part of the TYPO3/FluidViewHelpers project under GPLv2 or later.
@@ -8,24 +8,32 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Json;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 /**
- * Converts the JSON encoded argument into a PHP variable.
+ * Hashes a string.
  */
-class DecodeViewHelper extends AbstractViewHelper
+class HashViewHelper extends AbstractViewHelper
 {
     use CompileWithContentArgumentAndRenderStatic;
 
     /**
+     * Initialize
+     *
      * @return void
      */
     public function initializeArguments()
     {
-        $this->registerArgument('json', 'string', 'JSON string to decode');
+        $this->registerArgument('content', 'mixed', 'Content to hash');
+        $this->registerArgument(
+            'algorithm',
+            'string',
+            'Hashing algorithm to use (see http://php.net/manual/en/function.hash-algos.php for details)',
+            false,
+            'sha256'
+        );
     }
 
     /**
@@ -39,16 +47,8 @@ class DecodeViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-        $json = $renderChildrenClosure();
-        if (true === empty($json)) {
-            return null;
-        }
-        $value = json_decode($json, true);
-
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new Exception('The provided argument is invalid JSON.', 1358440054);
-        }
-
-        return $value;
+        $content = $renderChildrenClosure();
+        $content = hash($arguments['algorithm'], $content, false);
+        return $content;
     }
 }
