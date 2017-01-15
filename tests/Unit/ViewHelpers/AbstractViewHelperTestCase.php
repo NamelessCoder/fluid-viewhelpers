@@ -7,6 +7,7 @@ namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE.md file that was distributed with this source code.
  */
+
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperResolver;
 use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\NodeInterface;
 use TYPO3Fluid\Fluid\Core\Parser\SyntaxTree\ObjectAccessorNode;
@@ -19,7 +20,7 @@ use TYPO3Fluid\Fluid\View\TemplateView;
 /**
  * Class AbstractViewHelperTest
  */
-abstract class AbstractViewHelperTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractViewHelperTestCase extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -109,15 +110,24 @@ abstract class AbstractViewHelperTest extends \PHPUnit_Framework_TestCase
     protected function executeViewHelperUsingTagContent(array $arguments = [], array $variables = [], $nodeValue = null)
     {
         $instance = $this->buildViewHelperInstance($arguments);
-        $this->getRenderingContext($instance)->getVariableProvider()->setSource($variables);
-        $self = $this;
-        $instance->setRenderChildrenClosure(function() use ($instance, $nodeValue, $self) {
-            if (method_exists($instance, 'setChildNodes') && $nodeValue instanceof NodeInterface) {
-                $instance->setChildNodes([$nodeValue]);
-                return $nodeValue->evaluate($self->getRenderingContext($instance));
-            }
-            return $nodeValue;
-        });
+        $context = $this->getRenderingContext($instance);
+        if (!empty($variables)) {
+            $context->getVariableProvider()->setSource($variables);
+        }
+        if ($nodeValue instanceof NodeInterface) {
+            $viewHelperNode = $this->getMockBuilder(ViewHelperNode::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+            $viewHelperNode->addChildNode($nodeValue);
+            $instance->setChildNodes([$nodeValue]);
+        } else {
+            $viewHelperNode = $this->getMockBuilder(ViewHelperNode::class)
+                ->setMethods(['evaluateChildNodes'])
+                ->disableOriginalConstructor()
+                ->getMock();
+            $viewHelperNode->expects($this->atLeastOnce())->method('evaluateChildNodes')->willReturn($nodeValue);
+        }
+        $instance->setViewHelperNode($viewHelperNode);
         return $instance->initializeArgumentsAndRender();
     }
 

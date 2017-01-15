@@ -8,12 +8,12 @@ namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\Count;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
+use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 
 /**
  * Class BytesViewHelperTest
  */
-class BytesViewHelperTest extends AbstractViewHelperTest
+class BytesViewHelperTest extends AbstractViewHelperTestCase
 {
     /**
      * @param array $arguments

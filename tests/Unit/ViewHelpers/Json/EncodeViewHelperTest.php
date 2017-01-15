@@ -8,12 +8,12 @@ namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\Json;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
+use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 
 /**
  * Class EncodeViewHelperTest
  */
-class EncodeViewHelperTest extends AbstractViewHelperTest
+class EncodeViewHelperTest extends AbstractViewHelperTestCase
 {
 
     /**

@@ -1,0 +1,13 @@
+<f:section name="Test">
+    <f:call object="{object}" method="{method}" arguments="{arguments}" />
+    <f:call method="{method}" arguments="{arguments}">{object}</f:call>
+    {f:call(object: object, method: method, arguments: arguments)}
+    {object -> f:call(method: method, arguments: arguments)}
+</f:section>
+
+<f:section name="Expected">
+    foo
+    foo
+    foo
+    foo
+</f:section>

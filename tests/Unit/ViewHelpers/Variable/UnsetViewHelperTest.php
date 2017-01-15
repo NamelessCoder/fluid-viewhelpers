@@ -1,13 +1,13 @@
 <?php
 namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\Variable;
 
-use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
+use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 use TYPO3Fluid\Fluid\Core\Variables\StandardVariableProvider;
 
 /**
  * Class UnsetViewHelperTest
  */
-class UnsetViewHelperTest extends AbstractViewHelperTest
+class UnsetViewHelperTest extends AbstractViewHelperTestCase
 {
     /**
      * @test

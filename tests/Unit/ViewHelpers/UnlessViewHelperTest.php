@@ -4,7 +4,7 @@ namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers;
 /**
  * Class UnlessViewHelperTest
  */
-class UnlessViewHelperTest extends AbstractViewHelperTest
+class UnlessViewHelperTest extends AbstractViewHelperTestCase
 {
     /**
      * @test

@@ -10,9 +10,13 @@
         stopOnFailure="false"
         stopOnIncomplete="false"
         stopOnSkipped="false"
-        verbose="false">
+        verbose="false"
+        bootstrap="Tests/bootstrap.php">
 
         <testsuites>
+                <testsuite name="TYPO3/FluidViewHelpers Functional">
+                        <directory>tests/Functional</directory>
+                </testsuite>
                 <testsuite name="TYPO3/FluidViewHelpers Unit">
                         <directory>tests/Unit</directory>
                 </testsuite>

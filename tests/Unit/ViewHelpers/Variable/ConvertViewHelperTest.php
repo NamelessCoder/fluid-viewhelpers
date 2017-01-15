@@ -1,12 +1,12 @@
 <?php
 namespace TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\Variable;
 
-use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
+use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 
 /**
  * Class ConvertViewHelperTest
  */
-class ConvertViewHelperTest extends AbstractViewHelperTest
+class ConvertViewHelperTest extends AbstractViewHelperTestCase
 {
     /**
      * @param mixed $input
