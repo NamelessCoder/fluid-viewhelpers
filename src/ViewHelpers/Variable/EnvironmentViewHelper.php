@@ -45,6 +45,6 @@ class EnvironmentViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-        return $_ENV[$arguments['NAME']];
+        return getenv('TEST');
     }
 }

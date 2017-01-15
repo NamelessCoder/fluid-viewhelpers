@@ -8,7 +8,6 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -43,37 +42,26 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
  */
 class UnlessViewHelper extends AbstractConditionViewHelper
 {
-
     /**
      * Rendering with inversion and ignoring any f:then / f:else children.
      *
-     * @return string|NULL
+     * @return string|null
      */
     public function render()
     {
-        if (!static::evaluateCondition($this->arguments)) {
-            return $this->renderChildren();
+        if (static::evaluateCondition($this->arguments)) {
+            return $this->renderThenChild();
         }
         return null;
     }
 
     /**
-     * Static rendering with inversion and ignoring any f:then / f:else children.
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return mixed
+     * @param array|null $arguments
+     * @return boolean
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
-        $hasEvaluated = true;
-        if (!static::evaluateCondition($arguments)) {
-            return $renderChildrenClosure();
-        }
-        return null;
+    protected static function evaluateCondition($arguments = null)
+    {
+        return !parent::evaluateCondition($arguments);
     }
+
 }

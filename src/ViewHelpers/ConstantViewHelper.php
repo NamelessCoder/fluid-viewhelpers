@@ -13,11 +13,11 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 /**
- * ### Const ViewHelper
+ * ### Constant ViewHelper
  *
  * Renders the value of a PHP constant
  */
-class ConstViewHelper extends AbstractViewHelper
+class ConstantViewHelper extends AbstractViewHelper
 {
     use CompileWithContentArgumentAndRenderStatic;
 

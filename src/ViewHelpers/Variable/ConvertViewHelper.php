@@ -75,14 +75,7 @@ class ConvertViewHelper extends AbstractViewHelper
             }
         } else {
             if (true === isset($arguments['default'])) {
-                $default = $arguments['default'];
-                if (gettype($default) !== $type) {
-                    throw new Exception(
-                        sprintf('Supplied argument "default" is not of the type "%s"', $type),
-                        1364542576
-                    );
-                }
-                $value = $default;
+                $value = $arguments['default'];
             } else {
                 switch ($type) {
                     case 'string':
