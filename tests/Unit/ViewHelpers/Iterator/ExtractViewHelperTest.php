@@ -145,4 +145,26 @@ class ExtractViewHelperTest extends AbstractViewHelperTestCase
             $this->executeViewHelper(['content' => $structure, 'key' => $key, 'recursive' => false, 'single' => false])
         );
     }
+    /**
+     * @test
+     * @dataProvider simpleStructures
+     */
+    public function extractSingleValueByKeyExtractsSingleKeyByPath($structure, $key, $expected)
+    {
+        $this->assertEquals(
+            is_array($expected) ? reset($expected) : $expected,
+            $this->executeViewHelper(['content' => $structure, 'key' => $key, 'recursive' => false, 'single' => true])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function testChangesExceptionToViewHelperException()
+    {
+        $errorObject = $this->getMockBuilder(\ArrayIterator::class)->setMethods(['offsetExists'])->getMock();
+        $errorObject->expects($this->once())->method('offsetExists')->willThrowException(new \RuntimeException('error'));
+        $this->expectViewHelperException();
+        $this->executeViewHelper(['content' => ['object' => $errorObject], 'key' => 'object.0', 'recursive' => true]);
+    }
 }

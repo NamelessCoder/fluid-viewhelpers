@@ -8,6 +8,7 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Iterator;
  * LICENSE.md file that was distributed with this source code.
  */
 use TYPO3\FluidViewHelpers\Utility\ViewHelperUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
@@ -52,16 +53,16 @@ class ForViewHelper extends AbstractLoopViewHelper
         $step = intval($arguments['step']);
         $iteration = $arguments['iteration'];
         $content = '';
-        $variableProvider = ViewHelperUtility::getVariableProviderFromRenderingContext($renderingContext);
+        $variableProvider = $renderingContext->getVariableProvider();
 
         if (0 === $step) {
-            throw new \RuntimeException('"step" may not be 0.', 1383267698);
+            throw new Exception('"step" may not be 0.', 1383267698);
         }
         if ($from < $to && 0 > $step) {
-            throw new \RuntimeException('"step" must be greater than 0 if "from" is smaller than "to".', 1383268407);
+            throw new Exception('"step" must be greater than 0 if "from" is smaller than "to".', 1383268407);
         }
         if ($from > $to && 0 < $step) {
-            throw new \RuntimeException('"step" must be smaller than 0 if "from" is greater than "to".', 1383268415);
+            throw new Exception('"step" must be smaller than 0 if "from" is greater than "to".', 1383268415);
         }
 
         if (true === $variableProvider->exists($iteration)) {

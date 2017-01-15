@@ -20,6 +20,10 @@ class LoopViewHelperFunctionalTest extends AbstractFunctionalTestCase
      */
     protected function getVariables()
     {
-        return [];
+        return [
+            'iteration' => [
+                'existing' => 'existing'
+            ]
+        ];
     }
 }

@@ -15,5 +15,26 @@ use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
  */
 class ForViewHelperTest extends AbstractViewHelperTestCase
 {
+    /**
+     * @param array $arguments
+     * @test
+     * @dataProvider getErrorTestValues
+     */
+    public function testErrorOnArguments(array $arguments)
+    {
+        $this->expectViewHelperException();
+        $this->executeViewHelper($arguments);
+    }
 
+    /**
+     * @return array
+     */
+    public function getErrorTestValues()
+    {
+        return [
+            [['from' => 0, 'to' => 0, 'step' => 0]],
+            [['from' => 10, 'to' => 0, 'step' => 1]],
+            [['from' => 0, 'to' => 10, 'step' => -1]],
+        ];
+    }
 }

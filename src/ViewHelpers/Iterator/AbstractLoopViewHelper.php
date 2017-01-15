@@ -59,7 +59,6 @@ abstract class AbstractLoopViewHelper extends AbstractViewHelper
             'isLast' => static::isLast($i, $from, $to, $step)
         ];
         $variableProvider->add($iterationArgument, $iteration);
-        #var_dump($renderChildrenClosure());
         $content = $renderChildrenClosure();
         $variableProvider->remove($iterationArgument);
         return $content;

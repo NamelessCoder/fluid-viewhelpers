@@ -26,6 +26,15 @@ class NextViewHelper extends AbstractViewHelper
     protected $escapeOutput = false;
 
     /**
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('haystack', 'mixed', 'Haystack CSV, Traversable or array', true);
+        $this->registerArgument('needle', 'mixed', 'Value to look for in haystack', true);
+    }
+
+    /**
      * Default implementation for use in compiled templates
      *
      * @param array $arguments

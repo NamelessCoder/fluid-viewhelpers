@@ -117,7 +117,7 @@ class ExtractViewHelper extends AbstractViewHelper
             // extraction from Iterators could potentially use a getter method which throws
             // exceptions - although this would be bad practice. Catch the exception here
             // and turn it into a WARNING log message so that output does not break.
-            if (true === (boolean) $recursive) {
+            if ($recursive) {
                 $result = static::recursivelyExtractKey($content, $key, $renderingContext);
             } else {
                 $result = static::extractByKey($content, $key, $renderingContext);
@@ -126,29 +126,22 @@ class ExtractViewHelper extends AbstractViewHelper
             throw new Exception($error->getMessage(), $error->getCode(), $error);
         }
 
-        if (true === (boolean) $single) {
-            return reset($result);
-        }
-
-        return $result;
+        return ($single && is_array($result)) ? reset($result) : $result;
     }
 
     /**
      * Extract by key
      *
-     * @param \Traversable $iterator
+     * @param \Traversable $subject
      * @param string $key
      * @param RenderingContextInterface $renderingContext
      * @return mixed NULL or whatever we found at $key
      * @throws \Exception
      */
-    protected static function extractByKey($iterator, $key, RenderingContextInterface $renderingContext)
+    protected static function extractByKey($subject, $key, RenderingContextInterface $renderingContext)
     {
-        if (false === is_array($iterator) && false === $iterator instanceof \Traversable) {
-            throw new \Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
-        }
         return TemplateVariableHelper::getInstance()->extractValueFromObjectUsingVariableProviderCopy(
-            $iterator,
+            $subject,
             $key,
             $renderingContext
         );
@@ -157,27 +150,28 @@ class ExtractViewHelper extends AbstractViewHelper
     /**
      * Recursively extract the key
      *
-     * @param \Traversable $iterator
+     * @param \Traversable $subject
      * @param string $key
      * @param RenderingContextInterface $renderingContext
      * @return string
      * @throws \Exception
      */
-    protected static function recursivelyExtractKey($iterator, $key, RenderingContextInterface $renderingContext)
+    protected static function recursivelyExtractKey($subject, $key, RenderingContextInterface $renderingContext)
     {
         $content = [];
 
-        foreach ($iterator as $v) {
-            // Lets see if we find something directly:
+        foreach ($subject as $value) {
+            // Lets see if we find something directly...
             $result = TemplateVariableHelper::getInstance()->extractValueFromObjectUsingVariableProviderCopy(
-                $v,
+                $value,
                 $key,
                 $renderingContext
             );
-            if (null !== $result) {
+            if ($result !== null) {
                 $content[] = $result;
-            } elseif (true === is_array($v) || true === $v instanceof \Traversable) {
-                $content[] = static::recursivelyExtractKey($v, $key, $renderingContext);
+            } elseif (is_array($value) || $value instanceof \Traversable) {
+                // ...or we need to recurse to extract
+                $content[] = static::recursivelyExtractKey($value, $key, $renderingContext);
             }
         }
 
@@ -196,7 +190,7 @@ class ExtractViewHelper extends AbstractViewHelper
     protected static function flattenArray(array $content, $flattened = null)
     {
         foreach ($content as $sub) {
-            if (true === is_array($sub)) {
+            if (is_array($sub)) {
                 $flattened = static::flattenArray($sub, $flattened);
             } else {
                 $flattened[] = $sub;

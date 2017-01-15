@@ -20,6 +20,10 @@ class ForViewHelperFunctionalTest extends AbstractFunctionalTestCase
      */
     protected function getVariables()
     {
-        return [];
+        return [
+            'iteration' => [
+                'existing' => 'existing'
+            ]
+        ];
     }
 }

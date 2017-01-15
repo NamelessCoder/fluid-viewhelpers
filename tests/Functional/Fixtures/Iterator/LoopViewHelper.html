@@ -1,7 +1,51 @@
 <f:section name="Test">
-
+{iteration.existing}
+<f:iterator.loop count="5" iteration="iteration">
+{iteration.cycle}
+</f:iterator.loop>
+<f:iterator.loop count="10" maximum="5" iteration="iteration">
+{iteration.cycle}
+</f:iterator.loop>
+<f:iterator.loop count="3" minimum="5" maximum="5" iteration="iteration">
+{iteration.cycle}
+</f:iterator.loop>
+{iteration.existing}
 </f:section>
 
 <f:section name="Expected">
+existing
 
+1
+
+2
+
+3
+
+4
+
+5
+
+
+1
+
+2
+
+3
+
+4
+
+5
+
+
+1
+
+2
+
+3
+
+4
+
+5
+
+existing
 </f:section>

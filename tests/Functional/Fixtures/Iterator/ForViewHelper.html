@@ -1,7 +1,55 @@
 <f:section name="Test">
-
+{iteration.existing}
+<f:iterator.for from="5" to="10" iteration="iteration">
+{iteration.index}
+</f:iterator.for>
+<f:iterator.for from="0" to="6" step="2" iteration="iteration">
+{iteration.index}
+</f:iterator.for>
+<f:iterator.for from="6" to="0" step="-2" iteration="iteration">
+{iteration.index}
+</f:iterator.for>
+<f:iterator.for from="2" to="2" step="1" iteration="iteration">
+{iteration.index}
+</f:iterator.for>
+{iteration.existing}
 </f:section>
 
 <f:section name="Expected">
+existing
 
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+
+0
+
+2
+
+4
+
+6
+
+
+6
+
+4
+
+2
+
+0
+
+
+2
+
+existing
 </f:section>
