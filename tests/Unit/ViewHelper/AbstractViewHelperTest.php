@@ -78,6 +78,12 @@ abstract class AbstractViewHelperTest extends \PHPUnit_Framework_TestCase
         $renderingContext = new RenderingContext(new TemplateView());
         $renderingContext->getVariableProvider()->setSource($variables);
         $instance->setRenderingContext($renderingContext);
+        $argumentDefinitions = $instance->prepareArguments();
+        foreach ($argumentDefinitions as $argumentName => $argumentDefinition) {
+            if (!array_key_exists($argumentName, $arguments)) {
+                $arguments[$argumentName] = $argumentDefinition->getDefaultValue();
+            }
+        }
         $instance->setArguments($arguments);
         return $instance;
     }
@@ -153,6 +159,19 @@ abstract class AbstractViewHelperTest extends \PHPUnit_Framework_TestCase
         if ($code) {
             $this->expectExceptionCode($code);
         }
+    }
+
+    /**
+     * @param object $instance
+     * @param string $method
+     * @param array ...$arguments
+     * @return mixed
+     */
+    protected function callInaccessibleMethod($instance, $method, ...$arguments)
+    {
+        $method = new \ReflectionMethod($instance, $method);
+        $method->setAccessible(true);
+        return $method->invokeArgs($method->isStatic() ? $instance : null, $arguments);
     }
 
     /**
