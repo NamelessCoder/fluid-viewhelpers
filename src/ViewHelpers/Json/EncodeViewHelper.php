@@ -20,18 +20,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderS
  * The argument may be any of the following types:
  *
  * - arrays, associative and traditional
- * - DomainObjects
- * - arrays containing DomainObjects
- * - ObjectStorage containing DomainObjects
  * - standard types (string, integer, boolean, float, NULL)
  * - DateTime including ones found as property values on DomainObjects
  *
- * Recursion protection is enabled for DomainObjects with the option to
- * add a special marker (any variable type above also supported here)
- * which is inserted where an object which would cause recursion would
- * be placed.
- *
- * Be specially careful when you JSON encode DomainObjects which have
+ * Be specially careful when you JSON encode custom objects which have
  * recursive relations to itself using either 1:n or m:n - in this case
  * the one member of the converted relation will be whichever value you
  * specified as "recursionMarker" - or the default value, NULL. When

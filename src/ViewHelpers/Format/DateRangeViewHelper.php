@@ -126,29 +126,27 @@ class DateRangeViewHelper extends AbstractViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $start = $renderChildrenClosure();
-        if (empty($arguments['start'])) {
-            $start = 'now';
-        }
+        $start = $renderChildrenClosure() ?? 'now';
+
         $startDateTime = static::enforceDateTime($start);
 
-        if (true === isset($arguments['end']) && false === empty($arguments['end'])) {
+        if (isset($arguments['end']) && !empty($arguments['end'])) {
             $endDateTime = static::enforceDateTime($arguments['end']);
         } else {
             $endDateTime = null;
         }
 
-        if (true === isset($arguments['intervalFormat']) && false === empty($arguments['intervalFormat'])) {
+        if (isset($arguments['intervalFormat']) && !empty($arguments['intervalFormat'])) {
             $intervalFormat = $arguments['intervalFormat'];
         } else {
             $intervalFormat = null;
         }
 
-        if (null === $intervalFormat && null === $endDateTime) {
+        if (!$intervalFormat && !$endDateTime) {
             throw new Exception('Either end or intervalFormat has to be provided.', 1369573110);
         }
 
-        if (true === isset($intervalFormat) && null !== $intervalFormat) {
+        if ($intervalFormat && $intervalFormat) {
             try {
                 $interval = new \DateInterval($intervalFormat);
             } catch (\Exception $exception) {
@@ -168,15 +166,15 @@ class DateRangeViewHelper extends AbstractViewHelper
         }
 
         $return = $arguments['return'];
-        if (null === $return) {
+        if (!$return) {
             $spaceGlue = (boolean) $arguments['spaceGlue'];
             $glue = strval($arguments['glue']);
             $startFormat = $arguments['format'];
             $endFormat = $arguments['format'];
-            if (null !== $arguments['startFormat'] && false === empty($arguments['startFormat'])) {
+            if ($arguments['startFormat'] && !empty($arguments['startFormat'])) {
                 $startFormat = $arguments['startFormat'];
             }
-            if (null !== $arguments['endFormat'] && false === empty($arguments['endFormat'])) {
+            if ($arguments['endFormat'] && !empty($arguments['endFormat'])) {
                 $endFormat = $arguments['endFormat'];
             }
             $output = static::formatDate($startDateTime, $startFormat);
@@ -186,15 +184,15 @@ class DateRangeViewHelper extends AbstractViewHelper
             $output .= static::formatDate($endDateTime, $endFormat);
         } elseif ('DateTime' === $return) {
             $output = $endDateTime;
-        } elseif (true === is_string($return)) {
-            if (false === strpos($return, '%')) {
+        } elseif (is_string($return)) {
+            if (strpos($return, '%') === false) {
                 $return = '%' . $return;
             }
             $output = $interval->format($return);
-        } elseif (true === is_array($return)) {
+        } elseif (is_array($return)) {
             $output = [];
             foreach ($return as $format) {
-                if (false === strpos($format, '%')) {
+                if (strpos($format, '%') === false) {
                     $format = '%' . $format;
                 }
                 array_push($output, $interval->format($format));
@@ -209,9 +207,9 @@ class DateRangeViewHelper extends AbstractViewHelper
      */
     protected static function enforceDateTime($date)
     {
-        if (false === $date instanceof \DateTime) {
+        if (!$date instanceof \DateTime) {
             try {
-                if (true === is_integer($date)) {
+                if (is_integer($date)) {
                     $date = new \DateTime('@' . $date);
                 } else {
                     $date = new \DateTime($date);
@@ -231,7 +229,7 @@ class DateRangeViewHelper extends AbstractViewHelper
      */
     protected static function formatDate($date, $format = 'Y-m-d')
     {
-        if (false !== strpos($format, '%')) {
+        if (strpos($format, '%') !== false) {
             return strftime($format, $date->format('U'));
         } else {
             return $date->format($format);

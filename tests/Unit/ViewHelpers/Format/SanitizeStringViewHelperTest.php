@@ -25,7 +25,7 @@ class SanitizeStringViewHelperTest extends AbstractViewHelperTestCase
     public function sanitizesString($input, $expectedOutput)
     {
         $result = $this->executeViewHelper(['string' => $input]);
-        $this->assertEquals($expectedOutput, $result);
+        $this->assertSame($expectedOutput, $result);
     }
 
     /**
@@ -37,7 +37,9 @@ class SanitizeStringViewHelperTest extends AbstractViewHelperTestCase
             ['this string needs dashes', 'this-string-needs-dashes'],
             ['THIS SHOULD BE LOWERCASE', 'this-should-be-lowercase'],
             ['THESE øæå chars are not allowed', 'these-oeaeaa-chars-are-not-allowed'],
-            ['many           spaces become one dash', 'many-spaces-become-one-dash']
+            ['many           spaces become one dash', 'many-spaces-become-one-dash'],
+            ['', ''],
+            [null, null]
         ];
     }
 }
