@@ -10,6 +10,7 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Variable;
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
@@ -24,14 +25,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class EnvironmentViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    use CompileWithContentArgumentAndRenderStatic;
 
     /**
      * @return void
      */
     public function initializeArguments()
     {
-        $this->registerArgument('name', 'string', 'Name of environment variable to retrieve', true);
+        $this->registerArgument('name', 'string', 'Name of environment variable to retrieve');
     }
 
     /**
@@ -45,6 +46,6 @@ class EnvironmentViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-        return getenv('TEST');
+        return getenv($renderChildrenClosure());
     }
 }

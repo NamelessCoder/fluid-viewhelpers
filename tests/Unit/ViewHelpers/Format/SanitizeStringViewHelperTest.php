@@ -15,7 +15,6 @@ use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
  */
 class SanitizeStringViewHelperTest extends AbstractViewHelperTestCase
 {
-
     /**
      * @test
      * @dataProvider getInputsAndExpectedOutputs
@@ -41,5 +40,14 @@ class SanitizeStringViewHelperTest extends AbstractViewHelperTestCase
             ['', ''],
             [null, null]
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function testCustomMap()
+    {
+        $result = $this->executeViewHelper(['customMap' => [' ' => '-'], 'string' => 'no spaces please']);
+        $this->assertSame('no-spaces-please', $result);
     }
 }

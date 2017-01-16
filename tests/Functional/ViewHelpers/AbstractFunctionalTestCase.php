@@ -31,8 +31,9 @@ abstract class AbstractFunctionalTestCase extends \PHPUnit_Framework_TestCase
         $templateView->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename($this->resolveFilename());
         $templateView->getRenderingContext()->getViewHelperResolver()->addNamespace('f', 'TYPO3\\FluidViewHelpers\\ViewHelpers');
         $templateView->render();
-        $expected = $templateView->renderSection('Expected');
-        $result = $templateView->renderSection('Test', $this->getVariables());
+        $variables = $this->getVariables();
+        $expected = $templateView->renderSection('Expected', $variables);
+        $result = $templateView->renderSection('Test', $variables);
         $this->assertSame($expected, $result);
     }
 

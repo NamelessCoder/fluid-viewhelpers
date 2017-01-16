@@ -1,0 +1,19 @@
+<f:section name="Test">
+<f:format.date format="Y-m-d H:i">{date}</f:format.date>
+<f:format.date format="Y-m-d H:i" base="{date}">{relativeDate}</f:format.date>
+<f:format.date format="Y-m-d H:i" base="@{date.timestamp}">noon</f:format.date>
+<f:format.date format="Y-m-d H:i" base="{now}">noon</f:format.date>
+<f:format.date format="Y-m-d">now</f:format.date>
+<f:format.date format="%c">2017-01-16 00:00</f:format.date>
+<f:format.date format="Y-m-d" />
+</f:section>
+
+<f:section name="Expected">
+2017-01-16 00:00
+2017-01-16 12:00
+2017-01-16 12:00
+2017-01-16 12:00
+<f:format.date format="Y-m-d">now</f:format.date>
+{strftime}
+{expectedNow}
+</f:section>

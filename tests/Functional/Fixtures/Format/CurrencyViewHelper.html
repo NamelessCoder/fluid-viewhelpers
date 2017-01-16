@@ -1,0 +1,17 @@
+<f:section name="Test">
+<f:format.currency decimals="2">123.450</f:format.currency>
+<f:format.currency decimals="2">12123.450</f:format.currency>
+<f:format.currency decimals="2" currencySign="€">123.450</f:format.currency>
+<f:format.currency decimals="2" currencySign="€" separateCurrency="0">123.450</f:format.currency>
+<f:format.currency decimals="2" currencySign="€" prependCurrency="1">123.450</f:format.currency>
+<f:format.currency thousandsSeparator="." decimalSeparator="," decimals="1" currencySign="€">1123.450</f:format.currency>
+</f:section>
+
+<f:section name="Expected">
+123.45
+12,123.45
+123.45 €
+123.45€
+€ 123.45
+1.123,5 €
+</f:section>
