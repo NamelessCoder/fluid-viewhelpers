@@ -39,9 +39,8 @@ class SubstringViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        parent::initializeArguments();
         $this->registerArgument('haystack', 'string', 'String to count substring in, if not provided as tag content');
-        $this->registerArgument('string', 'string', 'Substring to count occurrences of', true);
+        $this->registerArgument('needle', 'string', 'Substring to count occurrences of', true);
     }
 
     /**
@@ -56,7 +55,8 @@ class SubstringViewHelper extends AbstractViewHelper
         RenderingContextInterface $renderingContext
     ) {
         return mb_substr_count(
-            $renderChildrenClosure(), $arguments['string']
+            (string) $renderChildrenClosure(),
+            (string) $arguments['needle']
         );
     }
 }

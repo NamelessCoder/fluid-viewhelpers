@@ -33,15 +33,15 @@ class SubstringViewHelperTest extends AbstractViewHelperTestCase
     {
         return [
             [
-                ['haystack' => 'foobar baz bar', 'string' => 'bar'],
+                ['haystack' => 'foobar baz bar', 'needle' => 'bar'],
                 2
             ],
             [
-                ['haystack' => 'string <b>with HTML</b>', 'string' => 'HTML'],
+                ['haystack' => 'string <b>with HTML</b>', 'needle' => 'HTML'],
                 1
             ],
             [
-                ['haystack' => 'string with strånge unicøde chæræcters', 'string' => 'unicøde'],
+                ['haystack' => 'string with strånge unicøde chæræcters', 'needle' => 'unicøde'],
                 1
             ],
         ];
