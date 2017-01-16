@@ -59,7 +59,7 @@ class TemplateVariableHelper
         RenderingContextInterface $renderingContext,
         \Closure $renderChildrenClosure
     ) {
-        if (true === empty($as)) {
+        if (empty($as)) {
             return $variable;
         } else {
             $variables = [$as => $variable];
@@ -103,7 +103,7 @@ class TemplateVariableHelper
     {
         $backups = [];
         foreach ($variables as $variableName => $variableValue) {
-            if (true === $variableProvider->exists($variableName)) {
+            if ($variableProvider->exists($variableName)) {
                 $backups[$variableName] = $variableProvider->get($variableName);
                 $variableProvider->remove($variableName);
             }
@@ -122,7 +122,7 @@ class TemplateVariableHelper
     {
         foreach ($variables as $variableName => $variableValue) {
             $variableProvider->remove($variableName);
-            if (true === isset($backups[$variableName])) {
+            if (isset($backups[$variableName])) {
                 $variableProvider->add($variableName, $variableValue);
             }
         }
