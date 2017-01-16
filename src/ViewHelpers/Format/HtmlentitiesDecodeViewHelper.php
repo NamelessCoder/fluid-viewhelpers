@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3Fluid\Fluid\ViewHelpers\Format;
+namespace TYPO3\FluidViewHelpers\ViewHelpers\Format;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,8 @@ namespace TYPO3Fluid\Fluid\ViewHelpers\Format;
  */
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 /**
  * Applies html_entity_decode() to a value
@@ -38,19 +40,21 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  *
  * @api
  */
-class HtmlentitiesDecodeViewHelper extends AbstractEncodingViewHelper
+class HtmlentitiesDecodeViewHelper extends AbstractViewHelper
 {
+    use CompileWithContentArgumentAndRenderStatic;
+
     /**
      * We accept value and children interchangeably, thus we must disable children escaping.
      *
-     * @var bool
+     * @var boolean
      */
     protected $escapeChildren = false;
 
     /**
      * If we decode, we must not encode again after that.
      *
-     * @var bool
+     * @var boolean
      */
     protected $escapeOutput = false;
 
@@ -66,21 +70,6 @@ class HtmlentitiesDecodeViewHelper extends AbstractEncodingViewHelper
     }
 
     /**
-     * Converts all HTML entities to their applicable characters as needed using PHPs html_entity_decode() function.
-     *
-     * @return string the altered string
-     * @see http://www.php.net/html_entity_decode
-     */
-    public function render()
-    {
-        return static::renderStatic(
-            $this->arguments,
-            $this->buildRenderChildrenClosure(),
-            $this->renderingContext
-        );
-    }
-
-    /**
      * @param array $arguments
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
@@ -89,20 +78,9 @@ class HtmlentitiesDecodeViewHelper extends AbstractEncodingViewHelper
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $value = $arguments['value'];
         $encoding = $arguments['encoding'];
         $keepQuotes = $arguments['keepQuotes'];
-
-        if ($value === null) {
-            $value = $renderChildrenClosure();
-        }
-        if (!is_string($value)) {
-            return $value;
-        }
-        if ($encoding === null) {
-            $encoding = self::resolveDefaultEncoding();
-        }
         $flags = $keepQuotes ? ENT_NOQUOTES : ENT_COMPAT;
-        return html_entity_decode($value, $flags, $encoding);
+        return html_entity_decode((string) $renderChildrenClosure(), $flags, $encoding);
     }
 }

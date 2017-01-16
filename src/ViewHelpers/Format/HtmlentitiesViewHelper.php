@@ -14,7 +14,9 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 /**
  * Applies htmlentities() escaping to a value
@@ -38,19 +40,21 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @api
  */
-class HtmlentitiesViewHelper extends AbstractEncodingViewHelper implements SingletonInterface
+class HtmlentitiesViewHelper extends AbstractViewHelper
 {
+    use CompileWithContentArgumentAndRenderStatic;
+
     /**
      * Output gets encoded by this viewhelper
      *
-     * @var bool
+     * @var boolean
      */
     protected $escapeOutput = false;
 
     /**
      * This prevents double encoding as the whole output gets encoded at the end
      *
-     * @var bool
+     * @var boolean
      */
     protected $escapeChildren = false;
 
@@ -63,34 +67,22 @@ class HtmlentitiesViewHelper extends AbstractEncodingViewHelper implements Singl
     {
         $this->registerArgument('value', 'string', 'string to format');
         $this->registerArgument('keepQuotes', 'bool', 'If TRUE, single and double quotes won\'t be replaced (sets ENT_NOQUOTES flag).', false, false);
-        $this->registerArgument('encoding', 'string', '');
+        $this->registerArgument('encoding', 'string', 'Encoding to use when converting', false, 'UTF-8');
         $this->registerArgument('doubleEncode', 'bool', 'If FALSE existing html entities won\'t be encoded, the default is to convert everything.', false, true);
     }
 
     /**
-     * Escapes special characters with their escaped counterparts as needed using PHPs htmlentities() function.
-     *
-     * @return string the altered string
-     * @see http://www.php.net/manual/function.htmlentities.php
-     * @api
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return string
      */
-    public function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $value = $this->arguments['value'];
-        $encoding = $this->arguments['encoding'];
-        $keepQuotes = $this->arguments['keepQuotes'];
-        $doubleEncode = $this->arguments['doubleEncode'];
-
-        if ($value === null) {
-            $value = $this->renderChildren();
-        }
-        if (!is_string($value)) {
-            return $value;
-        }
-        if ($encoding === null) {
-            $encoding = self::resolveDefaultEncoding();
-        }
+        $encoding = $arguments['encoding'];
+        $keepQuotes = $arguments['keepQuotes'];
+        $doubleEncode = $arguments['doubleEncode'];
         $flags = $keepQuotes ? ENT_NOQUOTES : ENT_COMPAT;
-        return htmlentities($value, $flags, $encoding, $doubleEncode);
+        return htmlentities((string) $renderChildrenClosure(), $flags, $encoding, $doubleEncode);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3Fluid\Fluid\ViewHelpers\Format;
+namespace TYPO3\FluidViewHelpers\ViewHelpers\Format;
 
 /*
  * This file belongs to the package "TYPO3/FluidViewHelpers".

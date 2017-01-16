@@ -46,7 +46,6 @@ class Nl2brViewHelper extends AbstractViewHelper
      */
     public function initializeArguments()
     {
-        parent::initializeArguments();
         $this->registerArgument('value', 'string', 'string to format');
     }
 

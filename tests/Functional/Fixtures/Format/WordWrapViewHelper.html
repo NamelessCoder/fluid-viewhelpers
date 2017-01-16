@@ -1,7 +1,14 @@
 <f:section name="Test">
-
+<f:format.wordWrap limit="30">this is a long string with a lot of content which will be broken into lines.</f:format.wordWrap>
+<f:format.wordWrap limit="10">singlestringmuchongerthanlinelengthlimit.</f:format.wordWrap>
 </f:section>
 
 <f:section name="Expected">
+this is a long string with a
+lot of content which will be
+broken into lines.
+
+singlestringmuchongerthanlinelengthl
+imit.
 
 </f:section>
