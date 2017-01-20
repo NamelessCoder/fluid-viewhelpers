@@ -23,7 +23,7 @@ class IsTraversableViewHelperTest extends AbstractViewHelperTestCase
         $arguments = [
             'then' => 'then',
             'else' => 'else',
-            'value' => new ObjectStorage()
+            'value' => new \ArrayIterator([])
         ];
         $result = $this->executeViewHelper($arguments);
         $this->assertEquals('then', $result);

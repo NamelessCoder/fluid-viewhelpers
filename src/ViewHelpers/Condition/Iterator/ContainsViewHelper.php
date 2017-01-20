@@ -26,8 +26,7 @@ class ContainsViewHelper extends AbstractConditionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition is met.');
-        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition is not met.');
+        parent::initializeArguments();
         $this->registerArgument('needle', 'mixed', 'Needle to search for in haystack', true);
         $this->registerArgument('haystack', 'mixed', 'Haystack in which to look for needle', true);
         $this->registerArgument(

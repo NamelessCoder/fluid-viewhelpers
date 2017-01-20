@@ -2,8 +2,8 @@
 <f:format.date format="Y-m-d H:i">{date}</f:format.date>
 <f:format.date format="Y-m-d H:i" base="{date}">{relativeDate}</f:format.date>
 <f:format.date format="Y-m-d H:i" base="@{date.timestamp}">noon</f:format.date>
-<f:format.date format="Y-m-d H:i" base="{now}">noon</f:format.date>
-<f:format.date format="Y-m-d">now</f:format.date>
+<f:format.date format="Y-m-d H:i" base="{date}">noon</f:format.date>
+<f:format.date format="Y-m-d">+1 day</f:format.date>
 <f:format.date format="%c">2017-01-16 00:00</f:format.date>
 <f:format.date format="Y-m-d" />
 </f:section>
@@ -13,7 +13,7 @@
 2017-01-16 12:00
 2017-01-16 12:00
 2017-01-16 12:00
-<f:format.date format="Y-m-d">now</f:format.date>
+{tomorrow}
 {strftime}
 {expectedNow}
 </f:section>

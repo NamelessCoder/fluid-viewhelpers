@@ -9,8 +9,6 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Condition\Variable;
  */
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
-use TYPO3\FluidViewHelpers\Traits\ConditionViewHelperTrait;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ### Condition: Value is NULL
@@ -20,15 +18,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class IsNullViewHelper extends AbstractConditionViewHelper
 {
-    use CompileWithRenderStatic;
-
     /**
      * @return void
      */
     public function initializeArguments()
     {
-        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition is met.');
-        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition is not met.');
+        parent::initializeArguments();
         $this->registerArgument('value', 'string', 'value to check', true);
     }
 

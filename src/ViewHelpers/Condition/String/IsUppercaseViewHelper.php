@@ -24,8 +24,7 @@ class IsUppercaseViewHelper extends AbstractConditionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition is met.');
-        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition is not met.');
+        parent::initializeArguments();
         $this->registerArgument('string', 'string', 'string to check', true);
         $this->registerArgument('fullString', 'string', 'need', false, false);
     }

@@ -10,8 +10,6 @@ namespace TYPO3\FluidViewHelpers\ViewHelpers\Condition\Variable;
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
-use TYPO3\FluidViewHelpers\Traits\ConditionViewHelperTrait;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ### Variable: Isset
@@ -42,8 +40,7 @@ class IssetViewHelper extends AbstractConditionViewHelper
      */
     public function initializeArguments()
     {
-        $this->registerArgument('then', 'mixed', 'Value to be returned if the condition is met.');
-        $this->registerArgument('else', 'mixed', 'Value to be returned if the condition is not met.');
+        parent::initializeArguments();
         $this->registerArgument('name', 'string', 'name of the variable', true);
     }
 
@@ -55,6 +52,16 @@ class IssetViewHelper extends AbstractConditionViewHelper
     {
         return static::$activeRenderingContext->getVariableProvider()->exists($arguments['name']);
     }
+
+    /**
+     * @return mixed
+     */
+    public function render()
+    {
+        static::$activeRenderingContext = $this->renderingContext;
+        return parent::render();
+    }
+
 
     /**
      * Default implementation for use in compiled templates

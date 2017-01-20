@@ -43,25 +43,20 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 class UnlessViewHelper extends AbstractConditionViewHelper
 {
     /**
-     * Rendering with inversion and ignoring any f:then / f:else children.
-     *
-     * @return string|null
+     * @return void
      */
-    public function render()
+    public function initializeArguments()
     {
-        if (static::evaluateCondition($this->arguments)) {
-            return $this->renderThenChild();
-        }
-        return null;
+        parent::initializeArguments();
+        $this->registerArgument('condition', 'boolean', 'Condition which must not be true');
     }
 
     /**
-     * @param array|null $arguments
+     * @param array $arguments
      * @return boolean
      */
     protected static function evaluateCondition($arguments = null)
     {
-        return !parent::evaluateCondition($arguments);
+        return !$arguments['condition'];
     }
-
 }

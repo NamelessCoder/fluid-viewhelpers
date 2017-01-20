@@ -13,8 +13,8 @@ use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 /**
  * Class IsBooleanViewHelperTest
  */
-class IsBooleanViewHelperTest extends AbstractViewHelperTestCase{
-
+class IsBooleanViewHelperTest extends AbstractViewHelperTestCase
+{
     /**
      * @test
      */
@@ -27,9 +27,6 @@ class IsBooleanViewHelperTest extends AbstractViewHelperTestCase{
         ];
         $result = $this->executeViewHelper($arguments);
         $this->assertEquals('then', $result);
-
-        $staticResult = $this->executeViewHelperStatic($arguments);
-        $this->assertEquals($result, $staticResult, 'The regular viewHelper output doesn\'t match the static output!');
     }
 
     /**
@@ -44,8 +41,5 @@ class IsBooleanViewHelperTest extends AbstractViewHelperTestCase{
         ];
         $result = $this->executeViewHelper($arguments);
         $this->assertEquals('else', $result);
-
-        $staticResult = $this->executeViewHelperStatic($arguments);
-        $this->assertEquals($result, $staticResult, 'The regular viewHelper output doesn\'t match the static output!');
     }
 }

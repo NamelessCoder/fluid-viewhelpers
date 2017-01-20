@@ -13,8 +13,8 @@ use TYPO3\FluidViewHelpers\Tests\Unit\ViewHelpers\AbstractViewHelperTestCase;
 /**
  * Class IsFloatViewHelperTest
  */
-class IsFloatViewHelperTest extends AbstractViewHelperTestCase{
-
+class IsFloatViewHelperTest extends AbstractViewHelperTestCase
+{
     /**
      * @test
      */

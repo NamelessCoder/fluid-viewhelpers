@@ -20,12 +20,17 @@ class DateViewHelperFunctionalTest extends AbstractFunctionalTestCase
      */
     protected function getVariables()
     {
+        $now = new \DateTime('now');
+        $fixed = new \DateTime('2017-01-16 00:00');
+        $tomorrow = (new \DateTime('@' . $now->format('U')))->modify('+1 day');
+        $relative = (new \DateTime('@' . $fixed->format('U')))->modify('noon');
         return [
-            'date' => new \DateTime('2017-01-16 00:00'),
-            'relativeDate' => new \DateTime('noon'),
-            'now' => new \DateTime('now'),
-            'expectedNow' => (new \DateTime('now'))->format('Y-m-d'),
-            'strftime' => strftime('%c', (new \DateTime('2017-01-16 00:00'))->format('U'))
+            'date' => $fixed,
+            'relativeDate' => $relative,
+            'now' => $now,
+            'expectedNow' => $now->format('Y-m-d'),
+            'tomorrow' => $tomorrow->format('Y-m-d'),
+            'strftime' => strftime('%c', $fixed->format('U'))
         ];
     }
 }
