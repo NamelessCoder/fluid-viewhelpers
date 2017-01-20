@@ -139,13 +139,8 @@ class AudioViewHelper extends AbstractTagBasedViewHelper
         $content = $this->tag->getContent();
         foreach ($sources as $source) {
             if (is_string($source)) {
-                if (false !== strpos($source, '//')) {
-                    $src = $source;
-                    $type = substr($source, strrpos($source, '.') + 1);
-                } else {
-                    $src = substr(GeneralUtility::getFileAbsFileName($source), strlen(PATH_site));
-                    $type = pathinfo($src, PATHINFO_EXTENSION);
-                }
+                $src = $source;
+                $type = pathinfo($src, PATHINFO_EXTENSION);
             } elseif (is_array($source)) {
                 if (!isset($source['src'])) {
                     throw new Exception('Missing value for "src" in sources array.', 1359381250);

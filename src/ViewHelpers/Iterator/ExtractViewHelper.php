@@ -153,7 +153,7 @@ class ExtractViewHelper extends AbstractViewHelper
      * @param \Traversable $subject
      * @param string $key
      * @param RenderingContextInterface $renderingContext
-     * @return string
+     * @return mixed[]
      * @throws \Exception
      */
     protected static function recursivelyExtractKey($subject, $key, RenderingContextInterface $renderingContext)

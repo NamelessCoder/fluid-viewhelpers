@@ -165,6 +165,7 @@ class DateRangeViewHelper extends AbstractViewHelper
             $endDateTime->add($interval);
         }
 
+        $output = '';
         $return = $arguments['return'];
         if (!$return) {
             $spaceGlue = (boolean) $arguments['spaceGlue'];

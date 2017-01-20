@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3Fluid\Fluid\ViewHelpers\Format;
+namespace TYPO3\FluidViewHelpers\ViewHelpers\Format;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,7 +17,6 @@ namespace TYPO3Fluid\Fluid\ViewHelpers\Format;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Formats a given float to a currency representation.

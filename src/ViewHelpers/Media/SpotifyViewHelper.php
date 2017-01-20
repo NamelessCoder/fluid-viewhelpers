@@ -97,10 +97,10 @@ class SpotifyViewHelper extends AbstractTagBasedViewHelper
 
         $this->tag->forceClosingTag(true);
         $this->tag->addAttribute('src', $src);
-        $this->tag->addAttribute('width', $width);
-        $this->tag->addAttribute('height', $height);
+        $this->tag->addAttribute('width', (string) $width);
+        $this->tag->addAttribute('height', (string) $height);
         $this->tag->addAttribute('allowtransparancy', 'true');
-        $this->tag->addAttribute('frameborder', 0);
+        $this->tag->addAttribute('frameborder', '0');
 
         return $this->tag->render();
     }

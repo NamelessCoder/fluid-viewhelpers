@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\FluidViewHelpers\ViewHelpers\Media;
+namespace TYPO3\FluidViewHelpers\ViewHelpers\Condition\Media;
 
 /*
  * This file is part of the TYPO3/FluidViewHelpers project under GPLv2 or later.

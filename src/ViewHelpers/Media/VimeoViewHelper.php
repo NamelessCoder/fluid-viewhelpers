@@ -121,9 +121,9 @@ class VimeoViewHelper extends AbstractTagBasedViewHelper
 
         $this->tag->forceClosingTag(true);
         $this->tag->addAttribute('src', $src);
-        $this->tag->addAttribute('width', $width);
-        $this->tag->addAttribute('height', $height);
-        $this->tag->addAttribute('frameborder', 0);
+        $this->tag->addAttribute('width', (string) $width);
+        $this->tag->addAttribute('height', (string) $height);
+        $this->tag->addAttribute('frameborder', '0');
         $this->tag->addAttribute('webkitAllowFullScreen', 'webkitAllowFullScreen');
         $this->tag->addAttribute('mozAllowFullScreen', 'mozAllowFullScreen');
         $this->tag->addAttribute('allowFullScreen', 'allowFullScreen');

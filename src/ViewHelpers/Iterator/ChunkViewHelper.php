@@ -72,7 +72,7 @@ class ChunkViewHelper extends AbstractViewHelper
         if (0 >= $count) {
             return $output;
         }
-        if (true === (boolean) $fixed) {
+        if ($fixed) {
             $subjectSize = count($subject);
             if (0 < $subjectSize) {
                 $chunkSize = ceil($subjectSize / $count);

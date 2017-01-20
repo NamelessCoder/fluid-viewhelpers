@@ -98,7 +98,7 @@ class EncodeViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
      * @param boolean $useTraversableKeys
      * @param boolean $preventRecursion
      * @param string $recursionMarker
@@ -107,15 +107,15 @@ class EncodeViewHelper extends AbstractViewHelper
      */
     protected static function encodeValue($value, $useTraversableKeys, $preventRecursion, $recursionMarker, $dateTimeFormat)
     {
-        if (true === $value instanceof \Traversable) {
+        if ($value instanceof \Traversable) {
             // Note: also converts ObjectStorage to \Vendor\Extname\Domain\Model\ObjectType[] which are each converted
             $value = iterator_to_array($value, $useTraversableKeys);
-        } elseif (true === $value instanceof \DateTime) {
+        } elseif ($value instanceof \DateTime) {
             $value = static::dateTimeToUnixtimeMiliseconds($value, $dateTimeFormat);
         }
 
         // process output of conversion, catching specially supported object types such as DomainObject and DateTime
-        if (true === is_array($value)) {
+        if (is_array($value)) {
             $value = static::recursiveDateTimeToUnixtimeMiliseconds($value, $dateTimeFormat);
         };
         $json = json_encode($value, JSON_HEX_AMP | JSON_HEX_QUOT | JSON_HEX_APOS | JSON_HEX_TAG);

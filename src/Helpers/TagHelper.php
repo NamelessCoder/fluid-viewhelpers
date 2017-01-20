@@ -25,14 +25,14 @@ class TagHelper
     public function prepareTagBuilder($tagName, array $attributes, $content = null)
     {
         // process some attributes differently - if empty, remove the property:
+        $builder = new TagBuilder();
         foreach ($attributes as $propertyName => $propertyValue) {
             if (true === empty($propertyValue)) {
-                $this->tag->removeAttribute($propertyName);
+                $builder->removeAttribute($propertyName);
             } else {
-                $this->tag->addAttribute($propertyName, $value);
+                $builder->addAttribute($propertyName, $propertyValue);
             }
         }
-        $builder = new TagBuilder();
         $builder->addAttributes($attributes);
         $builder->setTagName($tagName);
         if ($content) {

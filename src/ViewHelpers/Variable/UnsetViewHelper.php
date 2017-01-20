@@ -50,7 +50,7 @@ class UnsetViewHelper extends AbstractViewHelper
      * @param array $arguments
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
-     * @return void
+     * @return null
      */
     public static function renderStatic(
         array $arguments,
@@ -62,5 +62,6 @@ class UnsetViewHelper extends AbstractViewHelper
         if ($variableProvider->exists($name)) {
             $variableProvider->remove($name);
         }
+        return null;
     }
 }

@@ -78,15 +78,14 @@ class FilterViewHelper extends AbstractViewHelper
         if (null === $subject || (false === is_array($subject) && false === $subject instanceof \Traversable)) {
             return [];
         }
-        if ((false === (boolean) $nullFilter && null === $filter) || '' === $filter) {
+        if ((!$nullFilter && $filter === null) || '' === $filter) {
             return $subject;
         }
-        if (true === $subject instanceof \Traversable) {
+        if ($subject instanceof \Traversable) {
             $subject = iterator_to_array($subject);
         }
         $items = [];
-        $invert = (boolean) $invert;
-        $invertFlag = true === $invert ? false : true;
+        $invertFlag = !$invert;
         foreach ($subject as $key => $item) {
             if ($invertFlag === static::filter($item, $filter, $propertyName, $renderingContext)) {
                 $items[$key] = $item;

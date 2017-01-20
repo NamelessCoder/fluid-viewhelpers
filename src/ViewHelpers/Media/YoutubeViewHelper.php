@@ -114,7 +114,7 @@ class YoutubeViewHelper extends AbstractTagBasedViewHelper
 
         if (!$this->arguments['legacyCode']) {
             $this->tag->addAttribute('src', $src);
-            $this->tag->addAttribute('frameborder', 0);
+            $this->tag->addAttribute('frameborder', '0');
             $this->tag->addAttribute('allowFullScreen', 'allowFullScreen');
             $this->tag->forceClosingTag(true);
         } else {
@@ -128,18 +128,18 @@ class YoutubeViewHelper extends AbstractTagBasedViewHelper
                 'scriptAccess' => 'always',
             ];
             foreach ($paramAttributes as $name => $value) {
-                $tagContent .= $this->renderChildTag('param', [$name => $value], true);
+                $tagContent .= TagHelper::getInstance()->renderTag('param', [$name => $value], null, true);
             }
 
             $embedAttributes = [
                 'src' => $src,
                 'type' => 'application/x-shockwave-flash',
-                'width' => $width,
-                'height' => $height,
+                'width' => (string) $width,
+                'height' => (string) $height,
                 'allowFullScreen' => 'true',
                 'scriptAccess' => 'always',
             ];
-            $tagContent .= TagHelper::getInstance()->renderTag('embed', $embedAttributes, true);
+            $tagContent .= TagHelper::getInstance()->renderTag('embed', $embedAttributes, null, true);
 
             $this->tag->setContent($tagContent);
         }
@@ -159,44 +159,44 @@ class YoutubeViewHelper extends AbstractTagBasedViewHelper
 
         $params = [];
 
-        if (false === (boolean) $this->arguments['showRelated']) {
+        if (!$this->arguments['showRelated']) {
             $params[] = 'rel=0';
         }
-        if (true === (boolean) $this->arguments['autoplay']) {
+        if ($this->arguments['autoplay']) {
             $params[] = 'autoplay=1';
         }
-        if (true === (boolean) $this->arguments['hideControl']) {
+        if ($this->arguments['hideControl']) {
             $params[] = 'controls=0';
         }
-        if (true === (boolean) $this->arguments['hideInfo']) {
+        if ($this->arguments['hideInfo']) {
             $params[] = 'showinfo=0';
         }
-        if (true === (boolean) $this->arguments['enableJsApi']) {
+        if ($this->arguments['enableJsApi']) {
             $params[] = 'enablejsapi=1';
         }
-        if (false === empty($this->arguments['playlist'])) {
+        if (!empty($this->arguments['playlist'])) {
             $params[] = 'playlist=' . $this->arguments['playlist'];
         }
-        if (true === (boolean) $this->arguments['loop']) {
+        if ($this->arguments['loop']) {
             $params[] = 'loop=1';
         }
-        if (false === empty($this->arguments['start'])) {
+        if (!empty($this->arguments['start'])) {
             $params[] = 'start=' . $this->arguments['start'];
         }
-        if (false === empty($this->arguments['end'])) {
+        if (!empty($this->arguments['end'])) {
             $params[] = 'end=' . $this->arguments['end'];
         }
-        if (true === (boolean) $this->arguments['lightTheme']) {
+        if ($this->arguments['lightTheme']) {
             $params[] = 'theme=light';
         }
-        if (false === empty($this->arguments['videoQuality'])) {
+        if (!empty($this->arguments['videoQuality'])) {
             $params[] = 'vq=' . $this->arguments['videoQuality'];
         }
-        if (false === empty($this->arguments['windowMode'])) {
+        if (!empty($this->arguments['windowMode'])) {
             $params[] = 'wmode=' . $this->arguments['windowMode'];
         }
 
-        if (false === $this->arguments['legacyCode']) {
+        if (!$this->arguments['legacyCode']) {
             $src .= '/embed/'. $videoId;
             $separator = '?';
         } else {
@@ -204,31 +204,10 @@ class YoutubeViewHelper extends AbstractTagBasedViewHelper
             $separator = '&';
         }
 
-        if (false === empty($params)) {
+        if (!empty($params)) {
             $src .= $separator . implode('&', $params);
         }
 
         return $src;
-    }
-
-    /**
-     * Renders the provided tag and its attributes
-     *
-     * @param string $tagName
-     * @param array $attributes
-     * @param boolean $forceClosingTag
-     * @return string
-     */
-    private function renderChildTag($tagName, $attributes = [], $forceClosingTag = false)
-    {
-        $tagBuilder = clone $this->tag;
-        $tagBuilder->reset();
-        $tagBuilder->setTagName($tagName);
-        $tagBuilder->addAttributes($attributes);
-        $tagBuilder->forceClosingTag($forceClosingTag);
-        $childTag = $tagBuilder->render();
-        unset($tagBuilder);
-
-        return $childTag;
     }
 }
