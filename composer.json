@@ -1,7 +1,14 @@
 {
+  "repositories": [
+    {
+      "name": "typo3fluid/fluid",
+      "url": "https://github.com/NamelessCoder/Fluid",
+      "type": "vcs"
+    }
+  ],
   "name": "typo3/fluid-viewhelpers",
   "require": {
-    "typo3fluid/fluid": "^2.0"
+    "typo3fluid/fluid": "dev-conditionvhrefactor"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7"
